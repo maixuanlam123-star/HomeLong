@@ -87,7 +87,7 @@
   </select>
   <div class="dirs" id="dirs"></div>
   <div class="row">
-    <button id="tLabels" class="on">Tên phòng</button>
+    <button id="tLabels">Tên phòng</button>
     <button id="tFurn" class="on">Nội thất</button>
     <button id="tRot">Tự xoay</button>
   </div>
@@ -527,8 +527,8 @@ let anim=null;
 function go(v){if(typeof leaveRoomState==='function')leaveRoomState();const [p,t]=views[v];anim={p0:camera.position.clone(),t0:controls.target.clone(),p1:new THREE.Vector3(...p),t1:new THREE.Vector3(...t),k:0};
   document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===v));}
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
-camera.position.set(...views.persp[0]);controls.target.set(...views.persp[1]);
-document.querySelector('[data-view=persp]').classList.add('on');
+camera.position.set(...views.top[0]);controls.target.set(...views.top[1]);
+document.querySelector('[data-view=top]').classList.add('on');labels.visible=false;
 
 const cut=document.getElementById('cut'),cutv=document.getElementById('cutv');
 let cutPending=false;
@@ -583,7 +583,7 @@ zs.oninput=()=>setDist(43-(+zs.value));
 function orbit(deg){anim=null;const off=camera.position.clone().sub(controls.target);off.applyAxisAngle(new THREE.Vector3(0,1,0),deg*Math.PI/180);camera.position.copy(controls.target).add(off);}
 document.getElementById('rl').onclick=()=>orbit(-30);
 document.getElementById('rr').onclick=()=>orbit(30);
-document.getElementById('home').onclick=()=>go('persp');
+document.getElementById('home').onclick=()=>go('top');
 document.getElementById('compass').onclick=()=>{ // đưa hướng Bắc lên trên màn hình
   const off=camera.position.clone().sub(controls.target);const r=Math.hypot(off.x,off.z);
   const n=dirVec(0);anim={p0:camera.position.clone(),t0:controls.target.clone(),p1:controls.target.clone().add(new THREE.Vector3(-n.x*r,off.y,-n.z*r)),t1:controls.target.clone(),k:0};
@@ -625,7 +625,7 @@ function leaveRoomState(){
   camera.fov=40;camera.updateProjectionMatrix();
   controls.minDistance=3;controls.maxPolarAngle=Math.PI*0.495;controls.enablePan=true;resize();
 }
-document.getElementById('exitRoom').onclick=()=>{leaveRoomState();go('persp');};
+document.getElementById('exitRoom').onclick=()=>{leaveRoomState();go('top');};
 const chips=document.getElementById('chips');
 ROOMS.forEach(R=>{const b=document.createElement('button');b.textContent=R.n;b.onclick=()=>enterRoom(R);chips.appendChild(b);});
 // chạm/bấm vào tên phòng hoặc sàn phòng
@@ -682,7 +682,7 @@ document.getElementById('icClose').onclick=hideItem;
 
 // ===== THU GỌN BẢNG (điện thoại) =====
 const panel=document.querySelector('.panel'),tP=document.getElementById('tPanel');
-function setPanel(c){panel.classList.toggle('collapsed',c);tP.textContent=c?'▾ Mở thông tin':'▴ Thu gọn';resize();const [p,t]=views.persp;if(!anim){anim={p0:camera.position.clone(),t0:controls.target.clone(),p1:new THREE.Vector3(...p),t1:new THREE.Vector3(...t),k:0};}}
+function setPanel(c){panel.classList.toggle('collapsed',c);tP.textContent=c?'▾ Mở thông tin':'▴ Thu gọn';resize();const [p,t]=views.top;if(!anim){anim={p0:camera.position.clone(),t0:controls.target.clone(),p1:new THREE.Vector3(...p),t1:new THREE.Vector3(...t),k:0};}}
 tP.onclick=()=>setPanel(!panel.classList.contains('collapsed'));
 if(innerWidth<=640){panel.classList.add('collapsed');tP.textContent='▾ Mở thông tin';}
 
@@ -711,12 +711,12 @@ function resize(){
 }
 function inRoomSafe(){try{return !!inRoom;}catch(e){return false;}}
 addEventListener('resize',()=>{resize();});resize();
-{const [p,t]=views.persp;camera.position.set(...p);controls.target.set(...t);}
+{const [p,t]=views.top;camera.position.set(...p);controls.target.set(...t);}
 (function loop(){requestAnimationFrame(loop);
   if(anim){anim.k=Math.min(1,anim.k+0.04);const e=1-Math.pow(1-anim.k,3);
     camera.position.lerpVectors(anim.p0,anim.p1,e);controls.target.lerpVectors(anim.t0,anim.t1,e);if(anim.k>=1)anim=null;}
   if(innerWidth!==lastW||innerHeight!==lastH)resize();
-  if(!isFinite(camera.position.x+camera.position.y+camera.position.z)){anim=null;const [p,t]=views.persp;camera.position.set(...p);controls.target.set(...t);}
+  if(!isFinite(camera.position.x+camera.position.y+camera.position.z)){anim=null;const [p,t]=views.top;camera.position.set(...p);controls.target.set(...t);}
   controls.update();updateNeedle();updateLabels();
   if(document.activeElement!==zs)zs.value=43-camera.position.distanceTo(controls.target);
   renderer.render(scene,camera);})();
