@@ -67,6 +67,17 @@
   .sw button.on{box-shadow:0 0 0 2.5px #1d2733}
   .sw input[type=color]{width:30px;height:28px;border:0;padding:0;background:none}
   .frow{display:flex;align-items:center;gap:8px;margin-top:4px}.frow span{flex:0 0 112px;font-size:12px;color:#5b6672}.frow select{margin-top:0}
+  #apt{margin-top:10px;border-top:1px solid #e4e8ec;padding-top:8px}
+  #apt summary{cursor:pointer;font-weight:600;color:#1d2733}
+  .tb{width:100%;border-collapse:collapse;margin-top:6px;font-size:12px}
+  .tb td,.tb th{padding:4px 2px;border-bottom:1px dashed #eef1f4;text-align:left;vertical-align:top}
+  .tb th{color:#6b7580;font-weight:600}.tb td:last-child,.tb th:last-child{text-align:right}
+  #dims{position:fixed;inset:0;pointer-events:none;z-index:2}
+  .dm{position:absolute;left:0;top:0;font-size:11px;font-weight:600;color:#a33a1f;background:rgba(255,255,255,.88);padding:0 4px;border-radius:4px;white-space:nowrap;line-height:1.4}
+  .dm.big{font-size:12.5px;color:#7a1f0c}
+  .dm.rm{color:#1d4f73;background:rgba(255,255,255,.92);border:1px solid #c9d8e4}
+  #unhideFab{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:6;background:#1d2733;color:#fff;border:0;border-radius:20px;padding:8px 16px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+  body.inroom #unhideFab{top:62px}
   .hint{transition:opacity .6s;pointer-events:none;position:fixed;left:50%;transform:translateX(-50%);bottom:14px;background:rgba(29,39,51,.8);color:#fff;font-size:12px;padding:6px 12px;border-radius:20px}
   @media (max-width:640px){.hint{display:none}.panel{left:8px;right:8px;top:8px;max-height:60vh;overflow:auto}.nav{right:8px;bottom:8px;padding:6px}.nav button{width:34px;height:34px}#compass{width:48px;height:48px}.nav .cap{display:none}.nav{top:auto;bottom:14px;transform:none}.nav .zs{height:80px}.panel{max-width:none;right:14px;padding:10px 12px}.legend{display:none}.panel .sub{display:none}}
 </style>
@@ -103,9 +114,45 @@
   <div class="dirs" id="dirs"></div>
   <div class="row">
     <button id="tLabels">Tên phòng</button>
+    <button id="tDims">Kích thước</button>
     <button id="tFurn" class="on">Nội thất</button>
     <button id="tRot">Tự xoay</button>
   </div>
+  <details id="apt"><summary>Thông số căn hộ</summary>
+    <table class="tb">
+      <tr><td>Diện tích thông thủy</td><td><b>69,3 m²</b></td></tr>
+      <tr><td>Kích thước phủ bì</td><td>8.100 × 9.400 mm</td></tr>
+      <tr><td>Chiều cao tầng</td><td>3.300 mm</td></tr>
+      <tr><td>Chiều cao thông thủy (sàn → trần)</td><td>2.600 mm</td></tr>
+      <tr><td>Dầm / trần (sàn → đáy sàn trên)</td><td>650 mm</td></tr>
+      <tr><td>Tường bao</td><td>230 mm</td></tr>
+      <tr><td>Tường ngăn</td><td>100–150 mm</td></tr>
+    </table>
+    <div class="sp-room">Kích thước thông thủy từng phòng (mm)</div>
+    <table class="tb">
+      <tr><th>Phòng</th><th>Dài × rộng</th><th>DT</th></tr>
+      <tr><td>P.Ngủ 01</td><td>2.970 × 3.520</td><td>10,6 m²</td></tr>
+      <tr><td>P.Ngủ 02</td><td>3.330 × 2.840 + hốc 970 × 1.520</td><td>11,4 m²</td></tr>
+      <tr><td>P.Đa năng</td><td>2.970 × 2.170</td><td>6,6 m²</td></tr>
+      <tr><td>P.Khách</td><td>3.270 × 2.990</td><td>8,7 m²</td></tr>
+      <tr><td>Sảnh + Bếp + Ăn</td><td>3.460 × 2.990</td><td>12,0 m²</td></tr>
+      <tr><td>Hành lang</td><td>1.170 × 3.735</td><td>5,8 m²</td></tr>
+      <tr><td>WC 01</td><td>2.230 × 1.300</td><td>2,8 m²</td></tr>
+      <tr><td>WC 02</td><td>2.230 × 1.380</td><td>3,0 m²</td></tr>
+      <tr><td>Logia 01</td><td>1.100 × 2.990</td><td>3,2 m²</td></tr>
+      <tr><td>Logia 02</td><td>1.170 × 2.215</td><td>2,9 m²</td></tr>
+    </table>
+    <div class="sp-room">Cửa (mm)</div>
+    <table class="tb">
+      <tr><td>Cửa chính</td><td>1.000 × 2.200</td></tr>
+      <tr><td>Cửa phòng ngủ, đa năng</td><td>900 × 2.200</td></tr>
+      <tr><td>Cửa logia 02</td><td>800 × 2.200</td></tr>
+      <tr><td>Cửa WC</td><td>750 × 2.200</td></tr>
+      <tr><td>Cửa kính lùa logia 01</td><td>2.000 × 2.200</td></tr>
+      <tr><td>Cửa sổ phòng ngủ, đa năng</td><td>1.450–1.500 × 1.600 · bệ cao 600</td></tr>
+    </table>
+    <div class="note" style="border:0;padding-top:4px">Số liệu theo bản vẽ hoàn công KT-01, KT-02. Kích thước phòng là thông thủy (mặt trong tường), làm tròn theo bản scan.</div>
+  </details>
   <details id="specs"><summary>Thông số nội thất <small>(mm: dài × rộng × cao)</small></summary><div id="specList"></div></details>
   <div class="legend2">
   <div><b style="background:#c99a6b"></b>Phòng ngủ / đa năng (sàn gỗ)</div>
@@ -137,6 +184,7 @@
 </div>
 <div class="hint">Chạm vào cánh cửa để mở/đóng · Chạm vào đồ để xem kích thước · Kéo để xoay</div>
 <div id="itemCard"><button id="icClose" aria-label="Đóng">×</button><div class="ic-room"></div><div class="ic-name"></div><div class="ic-dims"></div><div class="ic-unit">Kích thước (mm): dài × rộng × cao</div><button id="icHide" style="margin-top:8px">Ẩn món này</button></div>
+<button id="unhideFab" style="display:none"></button>
 <div id="roomBar"><span id="roomName"></span><button id="exitRoom">◀ Ra ngoài</button></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -721,7 +769,8 @@ canvas.addEventListener('pointerup',e=>{
   ptr.set((e.clientX-rc.left)/rc.width*2-1,-(e.clientY-rc.top)/rc.height*2+1);
   ray.setFromCamera(ptr,camera);
   {const hf=ray.intersectObjects([...(furn.visible?furn.children:[]),...walls.children,...(doorsG.visible?doorsG.children:[])],true);
-    const o=hf.length&&hf[0].object;
+    const vis=hf.filter(h=>{let p=h.object;while(p){if(!p.visible)return false;p=p.parent;}return true;});
+    const o=vis.length&&vis[0].object;
     if(o&&o.userData.door){toggleDoor(o.userData.door);return;}
     if(o&&o.userData.item){showItem(o.userData.item);return;}}
   if(card.style.display==='block'){hideItem();return;}
@@ -750,6 +799,7 @@ function showItem(it){
   SEL=it;highlight();
   card.querySelector('.ic-room').textContent=it.room;card.querySelector('.ic-name').textContent=it.name;card.querySelector('.ic-dims').textContent=it.dims;
   card.style.display='block';hintEl&&(hintEl.style.opacity=0);
+  const hb=document.getElementById('icHide');if(hb)hb.textContent=HIDDEN.has(it.key)?'Hiện lại món này':'Ẩn món này';
 }
 function hideItem(){SEL=null;highlight();card.style.display='none';}
 document.getElementById('icClose').onclick=hideItem;
@@ -838,9 +888,66 @@ swatches('swBed',[[0xaebfcf,'Xanh nhạt'],[0xf2f0eb,'Trắng'],[0xc9ccd0,'Xám'
 // ẩn từng món
 const unhide=document.getElementById('unhide');
 function syncHidden(){furn.children.forEach(m=>{const it=m.userData.item;m.visible=!(it&&HIDDEN.has(it.key));});
-  unhide.style.display=HIDDEN.size?'':'none';unhide.textContent='Hiện lại đồ đã ẩn ('+HIDDEN.size+')';}
-document.getElementById('icHide').onclick=()=>{if(SEL){HIDDEN.add(SEL.key);hideItem();syncHidden();}};
-unhide.onclick=()=>{HIDDEN.clear();syncHidden();};
+  unhide.style.display=HIDDEN.size?'':'none';unhide.textContent='Hiện lại đồ đã ẩn ('+HIDDEN.size+')';
+  fab.style.display=HIDDEN.size?'':'none';fab.textContent='↺ Hiện lại '+HIDDEN.size+' món đã ẩn';}
+const icHide=document.getElementById('icHide'),fab=document.getElementById('unhideFab');
+icHide.onclick=()=>{if(!SEL)return;if(HIDDEN.has(SEL.key))HIDDEN.delete(SEL.key);else HIDDEN.add(SEL.key);syncHidden();
+  icHide.textContent=HIDDEN.has(SEL.key)?'Hiện lại món này':'Ẩn món này';highlight();};
+unhide.onclick=fab.onclick=()=>{HIDDEN.clear();syncHidden();if(SEL)icHide.textContent='Ẩn món này';};
+
+// ===== KÍCH THƯỚC CĂN HỘ (đường ghi kích thước) =====
+const dimsG=new THREE.Group();dimsG.visible=false;scene.add(dimsG);
+const dimLayer=document.createElement('div');dimLayer.id='dims';dimLayer.style.display='none';document.body.appendChild(dimLayer);
+const DIMS=[];const dimPts=[];
+const DY=0.03;
+function seg3(x0,y0,x1,y1){dimPts.push(X(x0),DY,Z(y0),X(x1),DY,Z(y1));}
+function dimText(txt,x,y,cls,z){const d=document.createElement('div');d.className='dm'+(cls?' '+cls:'');d.textContent=txt;dimLayer.appendChild(d);DIMS.push({el:d,p:new THREE.Vector3(X(x),z!==undefined?M(z):DY,Z(y))});}
+function segZ(x0,y0,z0,x1,y1,z1){dimPts.push(X(x0),M(z0),Z(y0),X(x1),M(z1),Z(y1));}
+// chuỗi kích thước theo chiều cao, đặt đứng tại điểm (x,y) trên mặt bằng; names: chú thích từng đoạn
+function vchain(x,y,zs,names,cls){
+  segZ(x,y,zs[0],x,y,zs[zs.length-1]);
+  zs.forEach(z=>{segZ(x-110,y-110,z-70,x+110,y+110,z+70);segZ(x-160,y,z,x+160,y,z);segZ(x,y-160,z,x,y+160,z);});
+  for(let i=0;i<zs.length-1;i++){const m=(zs[i]+zs[i+1])/2;dimText(nf(zs[i+1]-zs[i])+(names&&names[i]?' · '+names[i]:''),x,y,cls||'',m);}
+}
+const fmt=v=>v>=1000?(v/1000).toFixed(3).replace('.', '.'):String(v);
+const nf=v=>String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+function chain(pts,fixed,horiz,big){ // pts: toạ độ dọc theo cạnh; fixed: toạ độ cố định
+  const a=pts[0],b=pts[pts.length-1];
+  horiz?seg3(a,fixed,b,fixed):seg3(fixed,a,fixed,b);
+  pts.forEach(p=>{const t=90; horiz?seg3(p-t,fixed+t,p+t,fixed-t):seg3(fixed-t,p-t,fixed+t,p+t);
+    horiz?seg3(p,fixed-200,p,fixed+200):seg3(fixed-200,p,fixed+200,p);});
+  for(let i=0;i<pts.length-1;i++){const m=(pts[i]+pts[i+1])/2,v=pts[i+1]-pts[i];
+    horiz?dimText(nf(v),m,fixed+(big?0:0),big?'big':''):dimText(nf(v),fixed,m,big?'big':'');}
+}
+// chuỗi kích thước 4 cạnh (theo mặt bằng KT-01 và mặt cắt KT-02)
+chain([0,230,3200,3330,4500,4630,7960,8100],-450,true);
+chain([0,8100],-950,true,true);
+chain([0,230,3750,3880,6050,6180,9170,9400],-450,false);
+chain([0,9400],-950,false,true);
+chain([0,1100,1230,6225,7225,7960,8100],9850,true);
+chain([0,230,3070,3210,4590,4740,6040,6180,9170,9400],8550,false);
+
+// kích thước chiều cao (theo mặt cắt KT-02)
+vchain(-950,9900,[0,3300],['cao tầng'],'big');
+vchain(-450,9900,[0,2600],['sàn → trần']);
+vchain(-300,2480,[0,600,2200,3100],['bệ cửa sổ','cửa sổ','']);
+vchain(-300,4950,[0,600,2200],['bệ','cửa sổ']);
+vchain(-250,7500,[0,1000,1450],['lan can','kính']);
+vchain(7450,9750,[0,2200],['cửa chính']);
+vchain(6275,-350,[0,600,2200],['bệ','cửa sổ']);
+// kích thước thông thủy từng phòng
+[['2.970 × 3.520',1715,2300],['3.330 × 2.840',6300,1300],['2.970 × 2.170',1715,5450],['1.170 × 2.215',3915,1900],
+ ['1.170 × 3.735',3915,4900],['2.230 × 1.380',6850,4250],['2.230 × 1.300',6850,5750],['1.100 × 2.990',600,8300],
+ ['6.730 × 2.990 (khách + bếp)',4600,7600]].forEach(([t,x,y])=>dimText(t,x,y,'rm'));
+{const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(dimPts,3));
+ dimsG.add(new THREE.LineSegments(g,new THREE.LineBasicMaterial({color:lin(0xa33a1f)})));}
+const _dv=new THREE.Vector3();
+function updateDims(){const show=dimsG.visible&&!inRoom;dimLayer.style.display=show?'':'none';if(!show)return;
+  const rc=canvas.getBoundingClientRect();
+  DIMS.forEach(o=>{_dv.copy(o.p).project(camera);const sx=rc.left+(_dv.x+1)/2*rc.width,sy=rc.top+(1-_dv.y)/2*rc.height;
+    o.el.style.visibility=_dv.z<1?'visible':'hidden';o.el.style.transform='translate('+Math.round(sx)+'px,'+Math.round(sy)+'px) translate(-50%,-50%)';});}
+document.getElementById('tDims').onclick=function(){dimsG.visible=!dimsG.visible;this.classList.toggle('on',dimsG.visible);
+  if(dimsG.visible&&!inRoom)go('persp');};
 
 // ===== THU GỌN BẢNG (điện thoại) =====
 const panel=document.querySelector('.panel'),tP=document.getElementById('tPanel');
@@ -879,7 +986,7 @@ addEventListener('resize',()=>{resize();});resize();
     camera.position.lerpVectors(anim.p0,anim.p1,e);controls.target.lerpVectors(anim.t0,anim.t1,e);if(anim.k>=1)anim=null;}
   if(innerWidth!==lastW||innerHeight!==lastH)resize();
   if(!isFinite(camera.position.x+camera.position.y+camera.position.z)){anim=null;const [p,t]=views.top;camera.position.set(...p);controls.target.set(...t);}
-  animDoors();controls.update();updateNeedle();updateLabels();
+  animDoors();controls.update();updateNeedle();updateLabels();updateDims();
   if(document.activeElement!==zs)zs.value=43-camera.position.distanceTo(controls.target);
   renderer.render(scene,camera);})();
 </script>
